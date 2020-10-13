@@ -1,1 +1,83 @@
-zaza
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>starting Soundboard</title>
+  <link rel="stylesheet" href="style.css"> <!-- put css styling sheet here for you liking-->
+</head>
+<body>
+
+
+  <div class="keys">
+    <div data-key="1" class="key">
+      <kbd>1</kbd>
+      <span class="sound">sound1</span> <!--stylize your own css-->
+    </div>
+    <div data-key="2" class="key">
+      <kbd>2</kbd>
+      <span class="sound">sound2</span>
+    </div>
+    <div data-key="3" class="key">
+      <kbd>3</kbd>
+      <span class="sound">sound3</span>
+    </div>
+    <div data-key="4" class="key">
+      <kbd>4</kbd>
+      <span class="sound">sound4</span>
+    </div>
+    <div data-key="5" class="key">
+      <kbd>5</kbd>
+      <span class="sound">sound5</span>
+    </div>
+    <div data-key="6" class="key">
+      <kbd>6</kbd>
+      <span class="sound">sound6</span>
+    </div>
+    <div data-key="7" class="key">
+      <kbd>7</kbd>
+      <span class="sound">sound7</span>
+    </div>
+    <div data-key="8" class="key">
+      <kbd>8</kbd>
+      <span class="sound">sound8</span>
+    </div>
+    <div data-key="9" class="key">
+      <kbd>9</kbd>
+      <span class="sound">sound9</span>
+    </div>
+  </div>
+
+  <audio data-key="1" src=""></audio><!--put sound file inbetween quotes-->
+  <audio data-key="2" src=""></audio>
+  <audio data-key="3" src=""></audio>
+  <audio data-key="4" src=""></audio>
+  <audio data-key="5" src=""></audio>
+  <audio data-key="6" src=""></audio>
+  <audio data-key="7" src=""></audio>
+  <audio data-key="8" src=""></audio>
+  <audio data-key="9" src=""></audio>
+<!--JS starts here-->
+<script>
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+  }
+
+  function playSound(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    if (!audio) return;
+
+    key.classList.add('playing');
+    audio.currentTime = 0; //rewind to the start
+    audio.play();
+  }
+
+  const keys = Array.from(document.querySelectorAll('.key'));
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', playSound);
+</script>
+
+
+</body>
+</html>
